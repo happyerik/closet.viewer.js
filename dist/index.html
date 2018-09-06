@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>3D Viewer Test</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/components/dropdown.min.css" />
     <style>
-        #container {
-            margin: 20px;
+        .ui.grid {
+            padding: 5rem 0 0 0;
+        }
+        .field {
+            margin-bottom: 3rem;
         }
         #detail_viewer {
             float: left;
@@ -16,84 +20,174 @@
             margin-left: 50px;
             float: left;
         }
-        .sub-viewer div {
+        .sub-viewer .viewer {
             float: left;
             margin-right: 20px;
         }
+        .colorwayBtn {
+            margin-right: 5px;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/components/dropdown.min.js"></script>
     <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js'></script>
 </head>
 <body>
-    <div id="progresstest"></div>
-<div id="container" class="clearfix">
-    <br>
-    <br>
-    <div class="dropdown" style="margin-bottom: 30px;">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Example Files
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="javascript:load('https://s3.clo3d.com/zpac/1 (COLORWAY).zrest')">1 (COLORWAY).zrest</a>
-            <a class="dropdown-item" href="javascript:load('https://s3.clo3d.com/zpac/HB_very_far_trim.zrest')">HB_very_far_trim.zrest</a>
-            <a class="dropdown-item" href="javascript:load('https://s3.clo3d.com/zpac/PBRTest1.zrest')">PBRTest1.zrest</a>
-            <a class="dropdown-item" href="javascript:load('https://s3.clo3d.com/zpac/bomber.zrest')">bomber.zrest</a>
-            <a class="dropdown-item" href="javascript:load('https://s3.clo3d.com/zpac/denim.zrest')">denim.zrest</a>
-            <a class="dropdown-item" href="javascript:load('https://s3.clo3d.com/zpac/shirts.zrest')">shirts.zrest</a>
-            <a class="dropdown-item" href="javascript:load('https://s3.clo3d.com/zpac/Male_A_V3.zrest')">Male_A_V3.zrest</a>
-            <a class="dropdown-item" href="javascript:load('https://s3.clo3d.com/zpac/bomber_desat.zrest')">bomber_desat.zrest</a>
-            <a class="dropdown-item" href="javascript:load('https://s3.clo3d.com/zpac/Shoes_No_Show.zrest')">Shoes_No_Show.zrest</a>
+
+<div class=" ui container">
+    <div id="container" class="">
+        <div class="ui grid">
+            <div class="eight wide column">
+                <div id="detail_viewer"></div>
+            </div>
+            <div class="eight wide column">
+                <div class="field">
+                    <h3 class="first"></h3>
+                    <h4 class="ui header">Sample zrest Files</h4>
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="gender">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Select ZREST</div>
+                        <div class="menu">
+                            <div class="item" onclick="load('https://s3.clo3d.com/zpac/HB_very_far_trim.zrest')" data-value="1">1 (COLORWAY).zrest</div>
+                            <div class="item" onclick="load('https://s3.clo3d.com/zpac/PBRTest1.zrest')" data-value="1">PBRTest1.zrest</div>
+                            <div class="item" onclick="load('https://s3.clo3d.com/zpac/bomber.zrest')" data-value="1">bomber.zrest</div>
+                            <div class="item" onclick="load('https://s3.clo3d.com/zpac/denim.zrest')" data-value="1">denim.zrest</div>
+                            <div class="item" onclick="load('https://s3.clo3d.com/zpac/shirts.zrest')" data-value="1">shirts.zrest</div>
+                            <div class="item" onclick="load('https://s3.clo3d.com/zpac/Male_A_V3.zrest')" data-value="1">Male_A_V3.zrest</div>
+                            <div class="item" onclick="load('https://s3.clo3d.com/zpac/bomber_desat.zrest')" data-value="1">bomber_desat.zrest</div>
+                            <div class="item" onclick="load('https://s3.clo3d.com/zpac/Shoes_No_Show.zrest')" data-value="1">Shoes_No_Show.zrest</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <h4 class="ui header">Insert zrest URL</h4>
+                    <div class="ui action input">
+                        <input style="width: 350px;" id="zrestURL" type="text" placeholder="zrest URL ...">
+                        <button onclick="loadForm()" class="ui button">Load</button>
+                    </div>
+                </div>
+                <div class="field">
+                    <button type="button" onclick="cameraMatrix()" id="getMatrix" class="ui button">Matrix</button>
+                    <button id="fullscreen" type="button" class="ui button">fullscreen</button>
+                </div>
+                <div>Loaded: <span id="progresstest">0</span></div>
+            </div>
+
         </div>
-    </div>
-    
-    <div id="detail_viewer"></div>
+        <div class="ui grid" style="min-height: 500px;">
+            <div class="field">
+                <h4 class="ui header">Add Viewer</h4>
+                <div class="ui checkbox" style="margin-bottom: 20px;">
+                    <input type="checkbox" tabindex="0" class="hidden">
+                    <label>Camera option</label>
+                </div>
+                <div><button type="button" onclick="add()" class="ui button">add</button></div>
+                <div class="sub-viewer" style="margin-top: 20px;">
 
-    <div class="side-form">
-
-        <form>
-            <div class="form-group row">
-                <label for="zrestURL" class="col-sm-2 col-form-label">zrest URL</label>
-                <div class="col-sm-10">
-                    <input type="email" class="form-control" id="zrestURL" placeholder="zrest URL">
                 </div>
             </div>
-            <div class="form-group row">
-                <div class="offset-sm-2 col-sm-10">
-                    <button type="button" onclick="cameraMatrix()" id="getMatrix" class="btn btn-primary">Matrix</button>
-                </div>
-                <br/>
-                <br/>
-                <div class="offset-sm-2 col-sm-10">
-                    <button id="fullscreen" type="button" class="btn btn-primary">fullscreen</button>
-                </div>
-                <br/>
-                <br/>
-                <div class="offset-sm-2 col-sm-10">
-                    <button id="capture" type="button" onclick="canvasCapture()" class="btn btn-primary">capture</button>
-                </div>
+            <div class="field">
+
             </div>
-        </form>
-    </div>
-    <div>
-        <button onclick="loadForm()" type="button" class="btn btn-primary">Load</button>
-    </div>
-    <div>
-        <img id="capturedImage" src="" />
+        </div>
+        <div class="side-form">
+
+            <form>
+                <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="offset-sm-2 col-sm-10">
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="offset-sm-2 col-sm-10">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div>
+            <img id="capturedImage" src="" />
+        </div>
     </div>
 </div>
-    <div style="margin: 20px;">
-        <button type="button" onclick="add()" class="btn btn-primary">add</button>
-        <div class="sub-viewer" style="margin-top: 20px;">
 
-        </div>
-    </div>
 <script type='text/javascript' src='./closet.viewer.js'></script>
 <script>
 
+    var ischecked = false
+
+    $('.ui.dropdown').dropdown();
+
+    $('.ui.checkbox')
+        .checkbox()
+        .first().checkbox({
+        onChecked: function() {
+            ischecked = true
+        },
+        onUnchecked: function() {
+            ischecked = false
+        },
+        onEnable: function() {
+
+        },
+        onDisable: function() {
+
+        },
+        onDeterminate: function() {
+
+        },
+        onIndeterminate: function() {
+
+        },
+        onChange: function() {
+
+        }
+    })
+</script>
+<script>
+
+    var cameraPosition = null
+    var progressItem = document.getElementById('progresstest')
+
+    var updated = function(data) {
+        cameraPosition = data.position
+        for(var i = 0;i<closetViewerArray.length;i++){
+            const viewer = closetViewerArray[i].viewer
+            if(viewer.id !== data.id && ischecked) {
+                viewer.camera.position.copy(cameraPosition)
+            }
+        }
+    }
+
     var progress = function(percent){
-        document.getElementById('progresstest').innerHTML = percent;
+        progressItem.innerHTML = percent;
+    }
+
+    var loaded = function (viewer) {
+        console.log('viewer.getColorwaySize()', viewer.getColorwaySize())
+        var setter = document.getElementById(viewer.setter)
+        var colorwaySize = viewer.getColorwaySize()
+
+        $(setter).find('.colorwayBtns').remove()
+        var btns = $(setter).append('<div class="colorwayBtns"></div>').find('.colorwayBtns')
+
+
+
+        for (var i = 0;i<colorwaySize;i++){
+            var btn = document.createElement('button')
+            btn.className = 'mini ui button'
+            btn.innerText = i + 1
+            btn.index = i
+            btn.addEventListener('click', function(e) {
+                viewer.changeColorway(this.index)
+            })
+            btns.append(btn)
+
+        }
     }
 
     var closetViewerArray = []
@@ -101,15 +195,17 @@
 
     closet.viewer.init({
         element: 'detail_viewer',
-        width: 400,
-        height: 560
+        width: 500,
+        height: 660
     })
+    closet.viewer.onUpdateCamera(updated)
     closetViewerArray.push({viewer: closet.viewer, id: 'detail_viewer'})
 
     function add() {
         var container = document.querySelector('.sub-viewer')
 
         var div = document.createElement('div')
+        div.className = 'viewer'
         div.id = 'viewer' + Math.floor(Math.random() * 1000)
 
         container.appendChild(div)
@@ -121,35 +217,26 @@
         var cv = new ClosetViewer()
         cv.init({
             element: id,
-            width: 300,
-            height: 400
+            width: 320,
+            height: 480,
+            cameraPosition
         })
+        cv.onUpdateCamera(updated)
 
-        if(currentURL){
-            cv.loadZrestUrl(currentURL, progress);
-        }
-
+        if(currentURL) cv.loadZrestUrl(currentURL, progress, loaded);
         closetViewerArray.push({viewer: cv, id: id})
     }
 
     function loadForm() {
         var url = document.getElementById('zrestURL').value;
 
-        // closet.viewer.loadZrestUrl(url, progress);
-
-        for(var i = 0;i<closetViewerArray.length;i++){
-            var viewer = closetViewerArray[i].viewer
-            viewer.loadZrestUrl(url, progress);
-        }
+        load(url)
     }
 
     function load(url) {
-
-
-        // closet.viewer.loadZrestUrl(url, progress);
         for(var i = 0;i<closetViewerArray.length;i++){
             var viewer = closetViewerArray[i].viewer
-            viewer.loadZrestUrl(url, progress);
+            viewer.loadZrestUrl(url, progress, loaded);
         }
 
         currentURL = url
@@ -166,11 +253,6 @@
     {
         closet.viewer.getCameraMatrix();
         console.log(closet.viewer.getCameraMatrix())
-    }
-
-    function changeColrway(index)
-    {
-        closet.viewer.changeColorway(index);
     }
 
     window.onresize = function(event){
@@ -204,54 +286,6 @@
     //         height: 780
     //     })
     // }
-
-</script>
-<script>
-
-    // var cv0 = new ClosetViewer()
-    // cv0.init({
-    //     element: 'viewer1',
-    //     width: 300,
-    //     height: 400
-    // })
-
-
-
-    // closet.viewer.init({
-    //     element: 'viewer2',
-    //     width: 300,
-    //     height: 400
-    // })
-    // var cvRenderer = []
-    // var cv1 = new ClosetViewer()
-    // cv1.init({
-    //     element: 'viewer1',
-    //     width: 300,
-    //     height: 400
-    // })
-    //
-    //
-    // var cv2 = new ClosetViewer()
-    // cv2.init({
-    //     element: 'viewer2',
-    //     width: 300,
-    //     height: 400
-    // })
-
-
-
-    // var cv3 = new ClosetViewer()
-    // cv3.init({
-    //     element: 'viewer3',
-    //     width: 300,
-    //     height: 400
-    // })
-    // function animate() {
-    //     requestAnimationFrame(animate);
-    //
-    // }
-    //
-    // animate()
 
 </script>
 </body>
